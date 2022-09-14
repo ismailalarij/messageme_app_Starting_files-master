@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "853880648456",
+    "project_id": "messageme-app-39dbb",
+    "storage_bucket": "messageme-app-39dbb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:853880648456:android:81ee8f4d9651ad9d2072bd",
+        "android_client_info": {
+          "package_name": "com.ismail.messageme_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "853880648456-hifk6jdd1s3gp5nvfnvpt6lj143d82vc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCzhtxFP7hCR4qWbNJGpYXqbnb5c1jx1rc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "853880648456-hifk6jdd1s3gp5nvfnvpt6lj143d82vc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
