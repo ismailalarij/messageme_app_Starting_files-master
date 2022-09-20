@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:messageme_app/widgets/my_button.dart';
 // ignore: unused_import
 import 'package:messageme_app/screens/chat_screen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class RegistrationScreen extends StatefulWidget {
   static const String screenRoute= 'RegistrationScreen';
@@ -12,12 +13,16 @@ class RegistrationScreen extends StatefulWidget {
 }
 
 class _RegistrationScreenState extends State<RegistrationScreen> {
+  final _auth = FirebaseAuth.instance;
+  final formKey = GlobalKey<FormState>();
+
   late String email;
   late String password;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
+       key: formKey,
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 24),
         child: Column(
@@ -27,10 +32,13 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
             Container(
               height: 180,
               child: Image.asset('images/logo.png'),
-            ),
+            ), 
+           
             SizedBox(height: 50),
-            TextField(
+           TextField(
               keyboardType: TextInputType.emailAddress,
+              
+              
               textAlign: TextAlign.center,
               onChanged: (value) {
                 email = value;
@@ -41,6 +49,9 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                   vertical: 10,
                   horizontal: 20,
                 ),
+                
+              
+               
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.all(
                     Radius.circular(10),
@@ -64,6 +75,9 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                     Radius.circular(10),
                   ),
                 ),
+                
+
+                 
               ),
             ),
             SizedBox(height: 8),
@@ -108,9 +122,19 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
             MyButton(
               color: Colors.blue[800]!,
               title: 'register',
-              onPressed: () {
-                print(email);
-                print(password);
+              onPressed: () async {
+                //print(email);
+                //print(password);
+               // ignore: unused_local_variable
+               try {
+                // ignore: unused_local_variable
+                final newUser = await _auth.createUserWithEmailAndPassword(email: email, password: password);
+                Navigator.pushNamed(context, ChatScreen.screenRoute);
+               }
+               catch (e) {
+                print (e);
+               }
+               
               },
             )
           ],

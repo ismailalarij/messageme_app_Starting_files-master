@@ -1,4 +1,8 @@
+// ignore: unused_import
+
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:messageme_app/screens/signin_screen.dart';
 
 class ChatScreen extends StatefulWidget {
   static const String screenRoute= 'ChatScreen';
@@ -9,11 +13,34 @@ class ChatScreen extends StatefulWidget {
 }
 
 class _ChatScreenState extends State<ChatScreen> {
+  final _auth = FirebaseAuth.instance;
+  late User signedInUesr;
+  void iniState(){
+    super.initState();
+    getCurrentUser();
+  }
+
+  void getCurrentUser() {
+    try {
+       final user = _auth.currentUser;
+    if (user != null){
+      signedInUesr = user;
+      print(signedInUesr.email);
+
+    }
+
+    }
+    catch(e){
+      print(e);
+      
+    }
+   
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.yellow[900],
+        backgroundColor: Color.fromARGB(255, 12, 7, 3),
         title: Row(
           children: [
             Image.asset('images/logo.png', height: 25),
@@ -24,6 +51,8 @@ class _ChatScreenState extends State<ChatScreen> {
         actions: [
           IconButton(
             onPressed: () {
+              _auth.signOut();
+              Navigator.pushNamed(context, SignInScreen.screenRoute);
               // add here logout function
             },
             icon: Icon(Icons.close),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:messageme_app/widgets/my_button.dart';
 import 'package:messageme_app/screens/chat_screen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class SignInScreen extends StatefulWidget {
   static const String screenRoute= 'SignInScreen';
@@ -11,6 +12,9 @@ class SignInScreen extends StatefulWidget {
 }
 
 class _SignInScreenState extends State<SignInScreen> {
+  final _auth = FirebaseAuth.instance;
+  late String email;
+  late String password;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,9 +31,13 @@ class _SignInScreenState extends State<SignInScreen> {
             ),
             SizedBox(height: 50),
             TextField(
+               keyboardType: TextInputType.emailAddress,
               textAlign: TextAlign.center,
-              onChanged: (value) {},
+              onChanged: (value) {
+                email = value;
+              },
               decoration: InputDecoration(
+                
                 hintText: 'Enter your Email',
                 contentPadding: EdgeInsets.symmetric(
                   vertical: 10,
@@ -62,8 +70,11 @@ class _SignInScreenState extends State<SignInScreen> {
             ),
             SizedBox(height: 8),
             TextField(
+               obscureText: true,
               textAlign: TextAlign.center,
-              onChanged: (value) {},
+              onChanged: (value) {
+                password = value;
+              },
               decoration: InputDecoration(
                 hintText: 'Enter your password',
                 contentPadding: EdgeInsets.symmetric(
@@ -99,9 +110,23 @@ class _SignInScreenState extends State<SignInScreen> {
             MyButton(
               color: Colors.yellow[900]!,
               title: 'Sign in',
-              onPressed: () {
-                 Navigator.pushNamed(context,ChatScreen.screenRoute);
-              },
+              onPressed: () async {
+                // ignore: unused_local_variable
+                final user = await _auth.signInWithEmailAndPassword(email: email, password: password);
+                // ignore: unnecessary_null_comparison
+               
+              try {
+                 // ignore: unnecessary_null_comparison
+                 if (user != null ) {
+                  Navigator.pushNamed(context,ChatScreen.screenRoute);
+              }
+              }
+              catch(e){
+                print (e);
+
+              }
+                }
+               //  
             )
           ],
         ),

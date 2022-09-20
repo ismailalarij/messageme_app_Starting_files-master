@@ -6,10 +6,13 @@ import 'package:messageme_app/screens/registration_screen.dart';
 // ignore: unused_import
 import 'package:messageme_app/screens/signin_screen.dart';
 import 'screens/welcome_screen.dart';
-
-void main() {
+import 'package:firebase_core/firebase_core.dart';
+    
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+ await Firebase.initializeApp();
   runApp(MyApp());
-}
+}             
 
 class MyApp extends StatelessWidget {
   @override
